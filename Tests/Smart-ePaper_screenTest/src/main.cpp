@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 // base class GxEPD2_GFX can be used to pass references or pointers to the display instance as parameter, uses ~1.2k more code
 // enable or disable GxEPD2_GFX base class
 #define ENABLE_GxEPD2_GFX 0
@@ -8,6 +10,12 @@
 // wiring for ESP32 S3
 // SS/CS 10 MOSI/SDA 11 MISO 13 SCK/SCL 12
 GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display(GxEPD2_154_D67(/*CS=10*/ 10, /*DC=*/ 8, /*RST=*/ 7, /*BUSY=*/ 9));
+
+void helloWorld();
+void helloWorld_PartialMode();
+void displayCenterFullWindow(const char *str);
+void displayCenterPartialWindow(const char *str);
+void clearScreen();
 
 void setup()
 {
@@ -92,7 +100,7 @@ void helloWorld_PartialMode()
   Serial.println("helloWorld_PartialMode done");
 }
 
-void displayCenterFullWindow(char *str)
+void displayCenterFullWindow(const char *str)
 {
   Serial.println("displayCenterFullWindow");
   display.setRotation(0);
@@ -116,7 +124,7 @@ void displayCenterFullWindow(char *str)
   Serial.println("displayCenterFullWindow done");
 }
 
-void displayCenterPartialWindow(char *str)
+void displayCenterPartialWindow(const char *str)
 {
   Serial.println("displayCenterPartialWindow");
   display.setPartialWindow(0, 0, display.width(), display.height());

@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 // base class GxEPD2_GFX can be used to pass references or pointers to the display instance as parameter, uses ~1.2k more code
 // enable or disable GxEPD2_GFX base class
 #define ENABLE_GxEPD2_GFX 0
@@ -15,6 +17,10 @@ GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display(GxEPD2_154_D67(/*CS=10
 // GB2312
 extern const uint8_t gb2312[239032] U8G2_FONT_SECTION("gb2312");
 U8G2_FOR_ADAFRUIT_GFX u8g2dp;
+
+void helloWorld_GB2312();
+void displayCenterFullWindow(const char *str);
+void clearScreen();
 
 void setup()
 {
@@ -60,7 +66,7 @@ void helloWorld_GB2312()
   Serial.println("helloWorld_GB2312 done");
 }
 
-void displayCenterFullWindow(char *str)
+void displayCenterFullWindow(const char *str)
 {
   Serial.println("displayCenterFullWindow");
   display.setRotation(0);

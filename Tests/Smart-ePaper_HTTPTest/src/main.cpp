@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <ArduinoUZlib.h> // 解压 GZIP
@@ -11,6 +13,9 @@ const int resetPin = 17;
 #define BUFFER_SIZE 5000
 uint8_t inBuffer[BUFFER_SIZE];
 uint8_t *outBuffer;
+
+String get_weather();
+// void wifi_init();
 
 void setup()
 {
@@ -60,7 +65,7 @@ void loop()
 String get_weather()
 {
   String url = "https://devapi.qweather.com/v7/weather/now";
-  String APIKEY = ""; // 和风天气 APIKEY
+  String APIKEY = "1f9a4bf67b9c42db9667a2af6d26e38f"; // 和风天气 APIKEY
   String LocationID = "101230201"; // 厦门市
 
   HTTPClient http;
