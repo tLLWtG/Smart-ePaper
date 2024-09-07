@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 // base class GxEPD2_GFX can be used to pass references or pointers to the display instance as parameter, uses ~1.2k more code
 // enable or disable GxEPD2_GFX base class
 #define ENABLE_GxEPD2_GFX 0
@@ -7,6 +9,7 @@
 #include <Fonts/FreeMonoBold9pt7b.h>
 
 #include "GB2312.h"
+#include "BaseDisplay.h"
 
 // wiring for ESP32 S3
 // SS/CS 10 MOSI/SDA 11 MISO 13 SCK/SCL 12

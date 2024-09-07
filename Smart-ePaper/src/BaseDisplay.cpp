@@ -1,3 +1,6 @@
+#include <Arduino.h>
+#include "BaseDisplay.h"
+
 void displayCenterFullWindow(char *str)
 {
   Serial.println("displayCenterFullWindow");
