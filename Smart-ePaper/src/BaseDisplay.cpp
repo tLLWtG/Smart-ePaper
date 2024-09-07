@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "BaseDisplay.h"
 
-void displayCenterFullWindow(char *str)
+void displayCenterFullWindow(const char *str)
 {
   Serial.println("displayCenterFullWindow");
   display.setRotation(0);
@@ -25,7 +25,7 @@ void displayCenterFullWindow(char *str)
   Serial.println("displayCenterFullWindow done");
 }
 
-void displayCenterPartialWindow(char *str)
+void displayCenterPartialWindow(const char *str)
 {
   Serial.println("displayCenterPartialWindow");
   display.setPartialWindow(0, 0, display.width(), display.height());

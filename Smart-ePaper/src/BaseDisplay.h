@@ -17,8 +17,8 @@ extern GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display;
 extern const uint8_t gb2312[239032] U8G2_FONT_SECTION("gb2312");
 extern U8G2_FOR_ADAFRUIT_GFX u8g2dp;
 
-void displayCenterFullWindow(char *str);
-void displayCenterPartialWindow(char *str);
+void displayCenterFullWindow(const char *str);
+void displayCenterPartialWindow(const char *str);
 void clearScreen();
 void helloWorld();
 void helloWorld_PartialMode();
