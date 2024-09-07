@@ -1,2 +1,4 @@
 // Arduino libraries
 libraries
+.vscode
+.pio
