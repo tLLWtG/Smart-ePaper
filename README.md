@@ -9,6 +9,7 @@ An ePaper MP3 player with WiFi. (Under development)
   * PCM5102 (DAC)
   * MAX98357 (功放)
   * 3520 薄型侧发声腔体喇叭 (8Ω, 1W)
+  * MicroSD Card Adapter (SPI)
   * ...
 * **Arduino Libraries**:
   * zinggjm/GxEPD2
@@ -43,7 +44,11 @@ An ePaper MP3 player with WiFi. (Under development)
     Extra lib: 
     
     * arduino-audio-tools
-   
+
+5. **Smart-ePaper_SDTest**
+    
+
+  
 ## License
 
 This project is licensed under the MIT license. External libraries used by Smart-ePaper are licensed under their own licenses.
