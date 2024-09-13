@@ -19,6 +19,53 @@ An ePaper MP3 player with WiFi. (Under development)
 * **Extra Libraries**:
   * [ArduinoUZlib](https://github.com/tignioj/ArduinoUZlib)
   * [arduino-audio-tools](https://github.com/pschatzmann/arduino-audio-tools)
+  * [arduino-libhelix](https://github.com/pschatzmann/arduino-libhelix)
+
+## Pin Assignments
+
+> You can refer to the projects in the "Tests" folder to modify the pins yourself.
+
+* ePaper
+  
+  | Function | Pin |
+  |----------|-----|
+  | CS       | G10 |
+  | MOSI/SDA | G11 |
+  | MISO     | G13 |
+  | SCK/SCL  | G12 |
+  | DC       | G8  |
+  | RST      | G7  |
+  | BUSY     | G9  |
+
+* PCM5102
+  
+  | Function | Pin  |
+  |----------|------|
+  | BCK      | G6   |
+  | WS/LCK   | G4   |
+  | DIN      | G5   |
+  | FMT      | GND  |
+  | XMT      | 3.3V |
+
+  > DMP - De-emphasis control for 44.1kHz sampling rate(1): Off (Low) / On (High)
+  >
+  > FLT - Filter select : Normal latency (Low) / Low latency (High)
+  >
+  > SCL(I left it floating) - System clock input (probably SCL on your board).
+  >
+  > FMT - Audio format selection : I2S (Low) / Left justified (High)
+  >
+  > XMT - Soft mute control(1): Soft mute (Low) / soft un-mute (High)
+
+* MicroSD Card Adapter
+  
+  | Function | Pin |
+  |----------|-----|
+  | SCK      | G35 |
+  | MISO     | G36 |
+  | MOSI     | G37 |
+  | SS       | G38 |
+
 
 ## Tests
 
