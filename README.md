@@ -15,6 +15,7 @@ An ePaper MP3 player with WiFi. (Under development)
   * zinggjm/GxEPD2
   * olikraus/U8g2_for_Adafruit_GFX
   * bblanchon/ArduinoJson
+  * greiman/SdFat
 * **Extra Libraries**:
   * [ArduinoUZlib](https://github.com/tignioj/ArduinoUZlib)
   * [arduino-audio-tools](https://github.com/pschatzmann/arduino-audio-tools)
@@ -48,6 +49,13 @@ An ePaper MP3 player with WiFi. (Under development)
 5. **Smart-ePaper_SDTest**
     
 
+
+6. **Smart-ePaper_MemoryMP3Test**
+
+    Extra lib: 
+    
+    * arduino-audio-tools
+    * arduino-libhelix
   
 ## License
 
