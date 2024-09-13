@@ -23,9 +23,9 @@ An ePaper MP3 player with WiFi. (Under development)
 
 ## Pin Assignments
 
-> You can refer to the projects in the "Tests" folder to modify the pins yourself.
+> You can refer to projects in the "Tests" folder to modify the pins yourself.
 
-* ePaper
+* **ePaper**
   
   | Function | Pin |
   |----------|-----|
@@ -37,7 +37,7 @@ An ePaper MP3 player with WiFi. (Under development)
   | RST      | G7  |
   | BUSY     | G9  |
 
-* PCM5102
+* **PCM5102**
   
   | Function | Pin  |
   |----------|------|
@@ -57,7 +57,7 @@ An ePaper MP3 player with WiFi. (Under development)
   >
   > XMT - Soft mute control(1): Soft mute (Low) / soft un-mute (High)
 
-* MicroSD Card Adapter
+* **MicroSD Card Adapter**
   
   | Function | Pin |
   |----------|-----|
