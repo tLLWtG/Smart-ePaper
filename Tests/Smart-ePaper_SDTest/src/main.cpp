@@ -2,8 +2,9 @@
 #include <SPI.h>
 #include "SdFat.h"
 
+const int chipSelect = 39;
+
 SdFs sd;
-SPIClass hspi(HSPI);
 
 void listFiles(FsFile *dir, int level)
 {
@@ -28,10 +29,10 @@ void setup()
 {
   Serial.begin(115200);
   // void SPIClass::begin(int8_t sck, int8_t miso, int8_t mosi, int8_t ss)
-  hspi.begin(35, 36, 37, 38);
-  delay(3000);
+  SPI.begin(40, 42, 41, chipSelect);
+  delay(100);
   // SdSpiConfig(SdCsPin_t cs, uint8_t opt, uint32_t maxSpeed, SpiPort_t* port)
-  if (!sd.begin(SdSpiConfig(5, SHARED_SPI, 10000000, &hspi)))
+  if (!sd.begin(SdSpiConfig(chipSelect, SHARED_SPI, 10000000, &SPI)))
   {
     Serial.println("SD open fail.");
     return;
