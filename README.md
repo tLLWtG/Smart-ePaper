@@ -7,7 +7,7 @@ An ePaper MP3 player with WiFi. (Under development)
 * **Modules**:
   * 1.54-inch 200x200 e-paper display (ZJY200200-0154DAAMFGN, driver: SSD1681)
   * PCM5102 (DAC)
-  * MAX98357 (功放)
+  * PAM8406 (功放)
   * 3520 薄型侧发声腔体喇叭 (8Ω, 1W)
   * MicroSD Card Adapter (SPI)
   * ...
@@ -61,11 +61,16 @@ An ePaper MP3 player with WiFi. (Under development)
   
   | Function | Pin |
   |----------|-----|
-  | SCK      | G35 |
-  | MISO     | G36 |
-  | MOSI     | G37 |
-  | SS       | G38 |
+  | SCK      | G40 |
+  | MISO     | G42 |
+  | MOSI     | G41 |
+  | SS       | G39 |
 
+## Notes
+
+* 对于 SdFat 库，需要将其 SdFatConfig.h 中的宏定义 `USE_UTF8_LONG_NAMES` 的值改为 1，才能正常读取中文路径。
+* 电源不稳定时（比如我的电脑在插电状态下的 USB 供电），DAC 效果极差，同时也会导致 SD 卡读取异常。
+* 某些 SD 卡读写模块虽然标 3.3~5V，但实际上一定要接 5V 才能正常使用。
 
 ## Tests
 
@@ -83,15 +88,11 @@ An ePaper MP3 player with WiFi. (Under development)
 
 3. **Smart-ePaper_HTTPTest**
 
-    Extra lib: 
-
-    * ArduinoUZlib
+    * Extra lib: ArduinoUZlib
 
 4. **Smart-ePaper_AudioTest**
     
-    Extra lib: 
-    
-    * arduino-audio-tools
+    * Extra lib: arduino-audio-tools
 
 5. **Smart-ePaper_SDTest**
     
@@ -99,10 +100,11 @@ An ePaper MP3 player with WiFi. (Under development)
 
 6. **Smart-ePaper_MemoryMP3Test**
 
-    Extra lib: 
-    
-    * arduino-audio-tools
-    * arduino-libhelix
+    * Extra lib: arduino-audio-tools, arduino-libhelix
+
+7. **Smart-ePaper_SDMP3Test**
+
+    * Extra lib: arduino-audio-tools, arduino-libhelix
   
 ## License
 
