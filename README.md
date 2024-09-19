@@ -69,11 +69,24 @@ An ePaper MP3 player with WiFi. (Under development)
   | MOSI     | G41 |
   | SS       | G39 |
 
+* **Tact Switch**
+  
+  > Pin --> Switch --> GND
+
+  | Function  | Pin |
+  |-----------|-----|
+  | next      | G15 |
+  | previous  | G16 |
+  | volumeH   | G17 |
+  | volumeL   | G18 |
+  | startStop | G47 |
+
 ## Notes
 
 * 对于 SdFat 库，需要将其 SdFatConfig.h 中的宏定义 `USE_UTF8_LONG_NAMES` 的值改为 1，才能正常读取中文路径。
 * 电源不稳定时（比如我的电脑在插电状态下的 USB 供电），DAC 效果极差，同时也会导致 SD 卡读取异常。
 * 某些 SD 卡读写模块虽然标 3.3~5V，但实际上一定要接 5V 才能正常使用。
+* 测试结束后，将日志的级别设为 `AudioLogger::Warning` 或 `AudioLogger::Error` 以提高音质。
 
 ## Tests
 
@@ -107,6 +120,11 @@ An ePaper MP3 player with WiFi. (Under development)
     * Extra Lib: arduino-audio-tools, arduino-libhelix
 
 7. **Smart-ePaper_SDMP3Test**
+
+    * Arduino Lib: SdFat
+    * Extra Lib: arduino-audio-tools, arduino-libhelix
+
+8. **Smart-ePaper_MP3PlayerTest**
 
     * Arduino Lib: SdFat
     * Extra Lib: arduino-audio-tools, arduino-libhelix
