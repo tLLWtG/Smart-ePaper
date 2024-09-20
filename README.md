@@ -73,13 +73,13 @@ An ePaper MP3 player with WiFi. (Under development)
   
   > Pin --> Switch --> GND
 
-  | Function  | Pin |
-  |-----------|-----|
-  | next      | G15 |
-  | previous  | G16 |
-  | volumeH   | G17 |
-  | volumeL   | G18 |
-  | startStop | G47 |
+  | Function        | Pin |
+  |-----------------|-----|
+  | next/right      | G15 |
+  | previous/left   | G16 |
+  | volumeH/up      | G17 |
+  | volumeL/down    | G18 |
+  | startStop/enter | G47 |
 
 ## Notes
 
