@@ -10,4 +10,10 @@ enum PageStatus pageStatus, Index_sel;
 bool reDraw = true;
 uint8_t partDrawCnt = 0;
 
-AudioActions Index_action;
+SdFs sd;
+SPIClass SPI2(HSPI);
+Vector<String> music_list;
+
+uint16_t mlist_l = 0, mlist_r = 8, mlist_loc = 0;
+
+AudioActions action;

@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "BaseDisplay.h"
 
 void display_CenterFullWindow(const char *str)
@@ -217,6 +216,47 @@ void display_Index()
   while (display.nextPage());
 
   Serial.println("display_Index done");
+}
+
+void display_MP3_Sel()
+{
+  Serial.println("display_MP3_Sel");
+
+  
+  display.setRotation(0);
+  display.setPartialWindow(0, 0, 200, 200);
+  u8g2dp.setFont(gb2312);
+  u8g2dp.setForegroundColor(GxEPD_BLACK);
+  u8g2dp.setBackgroundColor(GxEPD_WHITE);
+
+  display.firstPage();
+  do
+  {
+    // display.drawRoundRect(10, 10, 180, 180, 8, GxEPD_BLACK);
+    // display.drawLine(10, 100, 190, 100, GxEPD_BLACK);
+    // display.drawLine(100, 10, 100, 190, GxEPD_BLACK);
+    display.fillRoundRect(0, 6, 200, 5, 3, GxEPD_BLACK);
+    display.fillRoundRect(0, 189, 200, 5, 3, GxEPD_BLACK);
+
+    for (int i = 0; i <= 7; ++i)
+    {
+      display.drawLine(0, 30 + i * 20, 200, 30 + i * 20, GxEPD_BLACK);
+    }
+    
+    for (int i = mlist_l; i <= mlist_r; ++i)
+    {
+      if (i < music_list.size())
+      {
+        u8g2dp.setCursor(5, 27 + (i - mlist_l) * 20);
+        u8g2dp.println(music_list[i]);
+      }
+    }
+
+    display.drawBitmap(180, 15 + (mlist_loc - mlist_l) * 20, ICON_ARROW, 15, 11, GxEPD_BLACK);
+  }
+  while (display.nextPage());
+
+  Serial.println("display_MP3_Sel done");
 }
 
 const uint8_t LOGO[] PROGMEM =

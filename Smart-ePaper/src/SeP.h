@@ -6,14 +6,15 @@
 #define DEBOUNCE_DELAY 300
 #endif
 
+#include <Arduino.h>
 #include <U8g2_for_Adafruit_GFX.h>
 #include <GxEPD2_BW.h>
 #include <Fonts/FreeMonoBold9pt7b.h>
+#include <SPI.h>
 #include <SdFat.h>
 
 #include "AudioTools.h"
 #include "GB2312.h"
-#include "BaseDisplay.h"
 
 extern GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display;
 
@@ -36,6 +37,12 @@ extern enum PageStatus pageStatus, Index_sel;
 extern bool reDraw;
 extern uint8_t partDrawCnt;
 
-extern AudioActions Index_action;
+extern SdFs sd;
+extern SPIClass SPI2;
+extern Vector<String> music_list;
+
+extern uint16_t mlist_l, mlist_r, mlist_loc;
+
+extern AudioActions action;
 
 #endif

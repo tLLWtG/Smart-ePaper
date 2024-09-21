@@ -3,6 +3,6 @@
 
 #include "SeP.h"
 
-extern void key_Index_setup();
+extern void key_setup();
 
 #endif

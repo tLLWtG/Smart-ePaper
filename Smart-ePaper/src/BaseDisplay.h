@@ -26,5 +26,6 @@ void display_helloWorld_GB2312_PartialMode();
 
 void display_Logo();
 void display_Index();
+void display_MP3_Sel();
 
 #endif
