@@ -69,6 +69,14 @@ void loop()
       
       break;
     case PageStatus_MP3_Play:
+      // redraw for auto next
+      if (mlist_loc != source.index())
+      {
+        mlist_l += source.index() - mlist_loc;
+        mlist_r += source.index() - mlist_loc;
+        mlist_loc = source.index();
+        reDraw = true;
+      }
       if (reDraw)
       {
         reDraw = false;
