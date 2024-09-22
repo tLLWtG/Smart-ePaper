@@ -8,9 +8,8 @@ void display_setup()
 {
   display.init(115200);
   u8g2dp.begin(display);
-  // display_Logo();
+  display_Logo();
   key_setup();
-  // delay(1000);
 }
 
 void setup()
@@ -30,6 +29,7 @@ void setup()
   Index_sel = PageStatus_Reader;
 
   Serial.println("setup done");
+  delay(1000);
 }
 
 void loop()
@@ -86,6 +86,7 @@ void loop()
           display_clearScreen();
         }
         display_MP3_Play();
+        display.hibernate();
       }
       player.copy();
       break;

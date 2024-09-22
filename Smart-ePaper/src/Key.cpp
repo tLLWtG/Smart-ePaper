@@ -1,4 +1,5 @@
 #include "Key.h"
+#include "BaseDisplay.h"
 
 void key_right(bool, int, void*)
 {
@@ -192,7 +193,12 @@ void key_back(bool, int, void*)
 {
     Serial.println("key_back");
     if (pageStatus == PageStatus_Index)
+    {
+        // clear for poweroff
+        display_clearScreen();
+        display.hibernate();
         return;
+    }
     reDraw = true;
     switch (pageStatus)
     {
