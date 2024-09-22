@@ -17,6 +17,21 @@ void key_right(bool, int, void*)
                 break;
         }
     }
+    else if (pageStatus == PageStatus_MP3_Play)
+    {
+        if (mlist_loc + 1 == music_list.size())
+            return;
+        reDraw = true;
+        mlist_loc = mlist_loc + 1;
+        if (mlist_loc > mlist_r)
+        {
+            ++mlist_l;
+            ++mlist_r;
+            reDraw = true;
+        }
+        player.setIndex(mlist_loc);
+        player.setActive(true);
+    }
 }
 
 void key_left(bool, int, void*)
@@ -35,6 +50,20 @@ void key_left(bool, int, void*)
                 reDraw = true;
                 break;
         }
+    }
+    else if (pageStatus == PageStatus_MP3_Play)
+    {
+        if (mlist_loc == 0)
+            return;
+        reDraw = true;
+        mlist_loc = mlist_loc - 1;
+        if (mlist_loc < mlist_l)
+        {
+            --mlist_l;
+            --mlist_r;
+        }
+        player.setIndex(mlist_loc);
+        player.setActive(true);
     }
 }
 
@@ -66,6 +95,16 @@ void key_up(bool, int, void*)
             --mlist_l;
             --mlist_r;
         }
+    }
+    else if (pageStatus == PageStatus_MP3_Play)
+    {
+        if (fabs(myVolume - 1.0) <= 1e-6)
+            return;
+        reDraw = true;
+        myVolume = myVolume + 0.05;
+        player.setVolume(myVolume);
+        Serial.printf("Current Volume: %f", myVolume);
+        Serial.println();
     }
 }
 
@@ -99,6 +138,16 @@ void key_down(bool, int, void*)
             reDraw = true;
         }
     }
+    else if (pageStatus == PageStatus_MP3_Play)
+    {
+        if (fabs(myVolume - 0.0) <= 1e-6)
+            return;
+        reDraw = true;
+        myVolume = myVolume - 0.05;
+        player.setVolume(myVolume);
+        Serial.printf("Current Volume: %f", myVolume);
+        Serial.println();
+    }
 }
 
 void key_enter(bool, int, void*)
@@ -106,7 +155,6 @@ void key_enter(bool, int, void*)
     Serial.println("key_enter");
     if (pageStatus == PageStatus_Index)
     {
-        partDrawCnt = 10;
         reDraw = true;
         switch (Index_sel)
         {
@@ -124,6 +172,20 @@ void key_enter(bool, int, void*)
                 break;
         }
     }
+    else if (pageStatus == PageStatus_MP3_Sel)
+    {
+        reDraw = true;
+        pageStatus = PageStatus_MP3_Play;
+        // player.setPath((String(startFilePath) + "/" + music_list[mlist_loc]).c_str());
+        player.setIndex(mlist_loc);
+        player.setActive(true);
+    }
+    else if (pageStatus == PageStatus_MP3_Play)
+    {
+        player.setActive(!player.isActive());
+        Serial.printf("Current Status: %s", (player.isActive() ? "Active" : "Inactive"));
+        Serial.println();
+    }
 }
 
 void key_back(bool, int, void*)
@@ -131,7 +193,6 @@ void key_back(bool, int, void*)
     Serial.println("key_back");
     if (pageStatus == PageStatus_Index)
         return;
-    partDrawCnt = 10;
     reDraw = true;
     switch (pageStatus)
     {
@@ -142,7 +203,8 @@ void key_back(bool, int, void*)
             pageStatus = PageStatus_Index;
             break;
         case PageStatus_MP3_Play:
-            // TODO
+            player.setActive(false);
+            pageStatus = PageStatus_MP3_Sel;
             break;
     }
 }

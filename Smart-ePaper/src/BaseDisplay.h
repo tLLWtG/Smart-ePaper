@@ -15,6 +15,11 @@ extern const uint8_t ICON_MUSIC[] PROGMEM;
 extern const uint8_t ICON_WEATHER[] PROGMEM;
 extern const uint8_t ICON_QUOTE[] PROGMEM;
 extern const uint8_t ICON_ARROW[] PROGMEM;
+extern const uint8_t ICON_STARTSTOP[] PROGMEM;
+extern const uint8_t ICON_NEXT[] PROGMEM;
+extern const uint8_t ICON_PREVIOUS[] PROGMEM;
+extern const uint8_t ICON_PLUS[] PROGMEM;
+extern const uint8_t ICON_SUB[] PROGMEM;
 
 void display_CenterFullWindow(const char *str);
 void display_CenterPartialWindow(const char *str);
@@ -27,5 +32,6 @@ void display_helloWorld_GB2312_PartialMode();
 void display_Logo();
 void display_Index();
 void display_MP3_Sel();
+void display_MP3_Play();
 
 #endif

@@ -17,3 +17,17 @@ Vector<String> music_list;
 uint16_t mlist_l = 0, mlist_r = 8, mlist_loc = 0;
 
 AudioActions action;
+
+// player
+
+const uint8_t Player_chipSelect = 39;
+
+float myVolume = 0.1;
+const char *startFilePath="/music";
+const char* ext="mp3";
+
+SdSpiConfig sdSPICFG(Player_chipSelect, SHARED_SPI, 10000000, &SPI2);
+AudioSourceSDFAT source(startFilePath, ext, sdSPICFG);
+I2SStream i2s;
+MP3DecoderHelix decoder;
+AudioPlayer player(source, i2s, decoder);

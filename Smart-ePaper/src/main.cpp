@@ -2,6 +2,7 @@
 #include "BaseDisplay.h"
 #include "Key.h"
 #include "SDop.h"
+#include "Player.h"
 
 void display_setup()
 {
@@ -23,6 +24,7 @@ void setup()
   {
     Serial.println("SD open fail.");
   }
+  Player_setup();
 
   pageStatus = PageStatus_Index;
   Index_sel = PageStatus_Reader;
@@ -67,7 +69,17 @@ void loop()
       
       break;
     case PageStatus_MP3_Play:
-      
+      if (reDraw)
+      {
+        reDraw = false;
+        if (++partDrawCnt >= 50)
+        {
+          partDrawCnt = 0;
+          display_clearScreen();
+        }
+        display_MP3_Play();
+      }
+      player.copy();
       break;
   }
   action.processActions();

@@ -57,6 +57,9 @@ bool SD_setup()
   make_music_list(&root);
   root.close();
 
+  sd.end();
+  SPI2.end();
+  SPI2.begin(40, 42, 41, chipSelect);
   for (auto x: music_list)
   {
     Serial.println(x);
