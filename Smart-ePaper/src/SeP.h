@@ -12,6 +12,10 @@
 #include <Fonts/FreeMonoBold9pt7b.h>
 #include <SPI.h>
 #include <SdFat.h>
+#include <WiFi.h>
+#include <ArduinoJson.h>
+#include <HTTPClient.h>
+#include <ArduinoUZlib.h>
 
 #include "AudioTools.h"
 #include "AudioLibs/AudioSourceSDFAT.h"
@@ -60,5 +64,15 @@ extern AudioSourceSDFAT source;
 extern I2SStream i2s;
 extern MP3DecoderHelix decoder;
 extern AudioPlayer player;
+
+// WiFi
+
+extern bool connecting_wifi;
+
+// GZIP Buffer
+#define BUFFER_SIZE 5000
+extern uint8_t inBuffer[BUFFER_SIZE];
+extern uint8_t *outBuffer;
+
 
 #endif

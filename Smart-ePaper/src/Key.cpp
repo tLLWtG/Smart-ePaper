@@ -66,6 +66,11 @@ void key_left(bool, int, void*)
         player.setIndex(mlist_loc);
         player.setActive(true);
     }
+    else if (pageStatus == PageStatus_Weather)
+    {
+        Serial.println("Clear WiFi info.");
+        esp_wifi_restore();
+    }
 }
 
 void key_up(bool, int, void*)
@@ -203,8 +208,15 @@ void key_back(bool, int, void*)
     switch (pageStatus)
     {
         case PageStatus_Reader:
+            pageStatus = PageStatus_Index;
+            break;
         case PageStatus_MP3_Sel:
+            pageStatus = PageStatus_Index;
+            break;
         case PageStatus_Weather:
+            WiFi.disconnect(true, false);
+            pageStatus = PageStatus_Index;
+            break;
         case PageStatus_Hitokoto:
             pageStatus = PageStatus_Index;
             break;

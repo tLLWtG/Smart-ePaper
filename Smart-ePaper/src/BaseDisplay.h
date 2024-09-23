@@ -2,6 +2,7 @@
 #define __BASEDISPLAY_H
 
 #include "SeP.h"
+#include "Weather.h"
 
 extern GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display;
 
@@ -33,5 +34,6 @@ void display_Logo();
 void display_Index();
 void display_MP3_Sel();
 void display_MP3_Play();
+void display_Weather();
 
 #endif

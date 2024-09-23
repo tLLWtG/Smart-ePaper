@@ -290,6 +290,95 @@ void display_MP3_Play()
   Serial.println("display_MP3_Play done");
 }
 
+void display_Weather()
+{
+  Serial.println("display_Weather");
+
+  display.setRotation(0);
+  display.setPartialWindow(0, 0, 200, 200);
+  u8g2dp.setFont(gb2312);
+  u8g2dp.setForegroundColor(GxEPD_BLACK);
+  u8g2dp.setBackgroundColor(GxEPD_WHITE);
+
+  bool connected = WiFi.status() == WL_CONNECTED;
+  if (!connected)
+  {
+    display.firstPage();
+    do
+    {
+      display.drawRoundRect(5, 5, 190, 190, 8, GxEPD_BLACK);
+
+      u8g2dp.setCursor(10, 25);
+      u8g2dp.println("Weather");
+      u8g2dp.setCursor(10, 40);
+      u8g2dp.println("Connecting to WiFi...");
+      u8g2dp.setCursor(10, 60);
+      u8g2dp.println("(若长时间处于连接状态，请");
+      u8g2dp.setCursor(10, 80);
+      u8g2dp.println("检查 WiFi 或重新配网。");
+      u8g2dp.setCursor(10, 100);
+      u8g2dp.println("另: 左键可删除配网信息，");
+        u8g2dp.setCursor(10, 120);
+      u8g2dp.println("删除后需重启设备以应用。)");
+    }
+    while (display.nextPage());
+  }
+  else
+  {
+    Realtime_weather rw = get_realtime_weather();
+    Forecast_weather fw = get_forecast_weather();
+    Air_data ad = get_air_data();
+    if (rw.updateTime.isEmpty() && fw.updateTime.isEmpty() && ad.updateTime.isEmpty())
+    {
+      display.firstPage();
+      do
+      {
+        display.drawRoundRect(5, 5, 190, 190, 8, GxEPD_BLACK);
+
+        u8g2dp.setCursor(10, 25);
+        u8g2dp.println("Weather");
+        u8g2dp.setCursor(10, 40);
+        u8g2dp.println("无法从服务器获取数据。");
+      }
+      while (display.nextPage());
+    }
+    else
+    {
+      display.firstPage();
+      do
+      {
+        display.drawRoundRect(5, 5, 190, 190, 8, GxEPD_BLACK);
+
+        u8g2dp.setCursor(10, 20);
+        u8g2dp.printf("Weather        updTime--%s", rw.updateTime);
+        u8g2dp.setCursor(10, 40);
+        u8g2dp.printf("实时天气:%s;T:%s;H:%s", rw.text, rw.temp, rw.humidity);
+        u8g2dp.setCursor(10, 60);
+        u8g2dp.printf("%s%s级;aqi:%s%s", rw.windDir, rw.windScale, ad.aqi, ad.category);
+
+        u8g2dp.setCursor(10, 80);
+        u8g2dp.printf("%s     气温:%s-%s", fw.fxDate[0], fw.tempMin[0], fw.tempMax[0]);
+        u8g2dp.setCursor(10, 100);
+        u8g2dp.printf("早晚天气:%s-%s", fw.textDay[0], fw.textNight[0]);
+
+        u8g2dp.setCursor(10, 120);
+        u8g2dp.printf("%s     气温:%s-%s", fw.fxDate[1], fw.tempMin[1], fw.tempMax[1]);
+        u8g2dp.setCursor(10, 140);
+        u8g2dp.printf("早晚天气:%s-%s", fw.textDay[1], fw.textNight[1]);
+
+        u8g2dp.setCursor(10, 160);
+        u8g2dp.printf("%s     气温:%s-%s", fw.fxDate[2], fw.tempMin[2], fw.tempMax[2]);
+        u8g2dp.setCursor(10, 180);
+        u8g2dp.printf("早晚天气:%s-%s", fw.textDay[2], fw.textNight[2]);
+        
+      }
+      while (display.nextPage());
+    }
+  }
+
+  Serial.println("display_Weather done");
+}
+
 const uint8_t LOGO[] PROGMEM =
 {
   0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,

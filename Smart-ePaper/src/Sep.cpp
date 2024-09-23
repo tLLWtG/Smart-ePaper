@@ -31,3 +31,12 @@ AudioSourceSDFAT source(startFilePath, ext, sdSPICFG);
 I2SStream i2s;
 MP3DecoderHelix decoder;
 AudioPlayer player(source, i2s, decoder);
+
+// WiFi
+
+bool connecting_wifi = false;
+
+// GZIP Buffer
+#define BUFFER_SIZE 5000
+uint8_t inBuffer[BUFFER_SIZE];
+uint8_t *outBuffer;
