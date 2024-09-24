@@ -3,6 +3,7 @@
 
 #include "SeP.h"
 #include "Weather.h"
+#include "Hitokoto.h"
 
 extern GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display;
 
@@ -35,5 +36,6 @@ void display_Index();
 void display_MP3_Sel();
 void display_MP3_Play();
 void display_Weather();
+void display_Hitokoto();
 
 #endif

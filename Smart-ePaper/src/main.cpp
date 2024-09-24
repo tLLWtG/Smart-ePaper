@@ -98,7 +98,38 @@ void loop()
       }
       break;
     case PageStatus_Hitokoto:
-      
+      if (reDraw)
+      {
+        reDraw = false;
+        if (++partDrawCnt >= 50)
+        {
+          partDrawCnt = 0;
+          display_clearScreen();
+        }
+        display_Hitokoto();
+      }
+      if (WiFi.status() == WL_CONNECTED)
+      {
+        if (connecting_wifi)
+        {
+          connecting_wifi = false;
+          reDraw = true;
+          delay(300);
+        }
+      }
+      else
+      {
+        if (connecting_wifi)
+        {
+          checkDNS_HTTP();
+          checkConnect();
+        }
+        else
+        {
+          connectToWiFi();
+          connecting_wifi = true;
+        }
+      }
       break;
     case PageStatus_MP3_Play:
       // redraw for auto next

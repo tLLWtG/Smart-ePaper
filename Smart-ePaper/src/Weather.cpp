@@ -45,8 +45,6 @@ String get_weatherStr(String url)
   return response;
 }
 
-// 2024-09-23T20:37+08:00
-
 Realtime_weather get_realtime_weather()
 {
   String url = "https://devapi.qweather.com/v7/weather/now";

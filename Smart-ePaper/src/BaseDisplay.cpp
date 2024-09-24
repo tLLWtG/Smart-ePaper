@@ -308,7 +308,7 @@ void display_Weather()
     {
       display.drawRoundRect(5, 5, 190, 190, 8, GxEPD_BLACK);
 
-      u8g2dp.setCursor(10, 25);
+      u8g2dp.setCursor(10, 20);
       u8g2dp.println("Weather");
       u8g2dp.setCursor(10, 40);
       u8g2dp.println("Connecting to WiFi...");
@@ -318,7 +318,7 @@ void display_Weather()
       u8g2dp.println("检查 WiFi 或重新配网。");
       u8g2dp.setCursor(10, 100);
       u8g2dp.println("另: 左键可删除配网信息，");
-        u8g2dp.setCursor(10, 120);
+      u8g2dp.setCursor(10, 120);
       u8g2dp.println("删除后需重启设备以应用。)");
     }
     while (display.nextPage());
@@ -335,7 +335,7 @@ void display_Weather()
       {
         display.drawRoundRect(5, 5, 190, 190, 8, GxEPD_BLACK);
 
-        u8g2dp.setCursor(10, 25);
+        u8g2dp.setCursor(10, 20);
         u8g2dp.println("Weather");
         u8g2dp.setCursor(10, 40);
         u8g2dp.println("无法从服务器获取数据。");
@@ -377,6 +377,93 @@ void display_Weather()
   }
 
   Serial.println("display_Weather done");
+}
+
+void display_Hitokoto()
+{
+  Serial.println("display_Hitokoto");
+  display.setRotation(0);
+  display.setPartialWindow(0, 0, 200, 200);
+  u8g2dp.setFont(gb2312);
+  u8g2dp.setForegroundColor(GxEPD_BLACK);
+  u8g2dp.setBackgroundColor(GxEPD_WHITE);
+
+  bool connected = WiFi.status() == WL_CONNECTED;
+  if (!connected)
+  {
+    display.firstPage();
+    do
+    {
+      u8g2dp.setCursor(0, 20);
+      u8g2dp.println("Hitokoto");
+      u8g2dp.setCursor(0, 40);
+      u8g2dp.println("Connecting to WiFi...");
+      u8g2dp.setCursor(0, 60);
+      u8g2dp.println("(若长时间处于连接状态，请");
+      u8g2dp.setCursor(0, 80);
+      u8g2dp.println("检查 WiFi 或重新配网。");
+      u8g2dp.setCursor(0, 100);
+      u8g2dp.println("另: 左键可删除配网信息，");
+      u8g2dp.setCursor(0, 120);
+      u8g2dp.println("删除后需重启设备以应用。)");
+    }
+    while (display.nextPage());
+  }
+  else
+  {
+    Hitokoto ht = get_hitokoto();
+    if (ht.hitokoto.isEmpty())
+    {
+      display.firstPage();
+      do
+      {
+        u8g2dp.setCursor(0, 20);
+        u8g2dp.println("Hitokoto");
+        u8g2dp.setCursor(0, 40);
+        u8g2dp.println("无法从服务器获取数据。");
+      }
+      while (display.nextPage());
+    }
+    else
+    {
+      display.setTextWrap(true);
+      display.firstPage();
+      do
+      {
+        u8g2dp.setCursor(0, 20);
+        u8g2dp.printf("Hitokoto");
+        u8g2dp.setCursor(20, 40);
+        
+        int count = 0, i = 0, ccount = 0;
+        while (i < ht.hitokoto.length())
+        {
+          int charLen = 1;
+          unsigned char byte = ht.hitokoto[i];
+
+          if (byte >= 0xC0)
+          {
+            if ((byte & 0xF0) == 0xE0) charLen = 3; // 3字节字符
+            else if ((byte & 0xF8) == 0xF0) charLen = 4; // 4字节字符
+            else charLen = 2; // 2字节字符
+          }
+          u8g2dp.print(ht.hitokoto.substring(i, i + charLen));
+          count++;
+          if ((ccount == 0 && count >= 13) || (count >= 14))
+          {
+            count = 0;
+            ++ccount;
+            u8g2dp.setCursor(0, 40 + ccount * 20);
+          }
+          i += charLen;
+        }
+
+        u8g2dp.setCursor(0, 160);
+        u8g2dp.printf("from:%s", ht.from);
+      }
+      while (display.nextPage());
+    }
+  }
+  Serial.println("display_Hitokoto done");
 }
 
 const uint8_t LOGO[] PROGMEM =
