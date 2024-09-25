@@ -31,11 +31,12 @@ extern U8G2_FOR_ADAFRUIT_GFX u8g2dp;
 enum PageStatus
 {
     PageStatus_Index,
-    PageStatus_Reader,
+    PageStatus_Reader_Sel,
     PageStatus_MP3_Sel,
     PageStatus_Weather,
     PageStatus_Hitokoto,
     PageStatus_MP3_Play,
+    PageStatus_Reader
 };
 
 extern enum PageStatus pageStatus, Index_sel;
@@ -46,8 +47,10 @@ extern uint8_t partDrawCnt;
 extern SdFs sd;
 extern SPIClass SPI2;
 extern Vector<String> music_list;
+extern Vector<String> txt_list;
 
 extern uint16_t mlist_l, mlist_r, mlist_loc;
+extern uint16_t tlist_l, tlist_r, tlist_loc;
 
 extern AudioActions action;
 

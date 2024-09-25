@@ -27,7 +27,7 @@ void setup()
   Player_setup();
 
   pageStatus = PageStatus_Index;
-  Index_sel = PageStatus_Reader;
+  Index_sel = PageStatus_Reader_Sel;
 
   Serial.println("setup done");
   delay(1000);
@@ -49,7 +49,17 @@ void loop()
         display_Index();
       }
       break;
-    case PageStatus_Reader:
+    case PageStatus_Reader_Sel:
+      if (reDraw)
+      {
+        reDraw = false;
+        if (++partDrawCnt >= 50)
+        {
+          partDrawCnt = 0;
+          display_clearScreen();
+        }
+        display_Reader_Sel();
+      }
       break;
     case PageStatus_MP3_Sel:
       if (reDraw)
@@ -152,6 +162,19 @@ void loop()
         display.hibernate();
       }
       player.copy();
+      break;
+    case PageStatus_Reader:
+      if (reDraw)
+      {
+        reDraw = false;
+        if (++partDrawCnt >= 50)
+        {
+          partDrawCnt = 0;
+          display_clearScreen();
+        }
+        display_Reader();
+        display.hibernate();
+      }
       break;
   }
   action.processActions();

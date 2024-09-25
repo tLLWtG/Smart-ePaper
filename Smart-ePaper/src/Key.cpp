@@ -8,7 +8,7 @@ void key_right(bool, int, void*)
     {
         switch (Index_sel)
         {
-            case PageStatus_Reader:
+            case PageStatus_Reader_Sel:
                 Index_sel = PageStatus_MP3_Sel;
                 reDraw = true;
                 break;
@@ -43,7 +43,7 @@ void key_left(bool, int, void*)
         switch (Index_sel)
         {
             case PageStatus_MP3_Sel:
-                Index_sel = PageStatus_Reader;
+                Index_sel = PageStatus_Reader_Sel;
                 reDraw = true;
                 break;
             case PageStatus_Hitokoto:
@@ -81,7 +81,7 @@ void key_up(bool, int, void*)
         switch (Index_sel)
         {
             case PageStatus_Weather:
-                Index_sel = PageStatus_Reader;
+                Index_sel = PageStatus_Reader_Sel;
                 reDraw = true;
                 break;
             case PageStatus_Hitokoto:
@@ -112,6 +112,18 @@ void key_up(bool, int, void*)
         Serial.printf("Current Volume: %f", myVolume);
         Serial.println();
     }
+    else if (pageStatus == PageStatus_Reader_Sel)
+    {
+        if (tlist_loc == 0)
+            return;
+        reDraw = true;
+        tlist_loc = tlist_loc - 1;
+        if (tlist_loc < tlist_l)
+        {
+            --tlist_l;
+            --tlist_r;
+        }
+    }
 }
 
 void key_down(bool, int, void*)
@@ -121,7 +133,7 @@ void key_down(bool, int, void*)
     {
         switch (Index_sel)
         {
-            case PageStatus_Reader:
+            case PageStatus_Reader_Sel:
                 Index_sel = PageStatus_Weather;
                 reDraw = true;
                 break;
@@ -154,6 +166,19 @@ void key_down(bool, int, void*)
         Serial.printf("Current Volume: %f", myVolume);
         Serial.println();
     }
+    else if (pageStatus == PageStatus_Reader_Sel)
+    {
+        if (tlist_loc + 1 == txt_list.size())
+            return;
+        reDraw = true;
+        tlist_loc = tlist_loc + 1;
+        if (tlist_loc > tlist_r)
+        {
+            ++tlist_l;
+            ++tlist_r;
+            reDraw = true;
+        }
+    }
 }
 
 void key_enter(bool, int, void*)
@@ -164,8 +189,8 @@ void key_enter(bool, int, void*)
         reDraw = true;
         switch (Index_sel)
         {
-            case PageStatus_Reader:
-                pageStatus = PageStatus_Reader;
+            case PageStatus_Reader_Sel:
+                pageStatus = PageStatus_Reader_Sel;
                 break;
             case PageStatus_MP3_Sel:
                 pageStatus = PageStatus_MP3_Sel;
@@ -192,6 +217,12 @@ void key_enter(bool, int, void*)
         Serial.printf("Current Status: %s", (player.isActive() ? "Active" : "Inactive"));
         Serial.println();
     }
+    else if (pageStatus == PageStatus_Reader_Sel)
+    {
+        reDraw = true;
+        pageStatus = PageStatus_Reader;
+        // TODO
+    }
 }
 
 void key_back(bool, int, void*)
@@ -207,7 +238,7 @@ void key_back(bool, int, void*)
     reDraw = true;
     switch (pageStatus)
     {
-        case PageStatus_Reader:
+        case PageStatus_Reader_Sel:
             pageStatus = PageStatus_Index;
             break;
         case PageStatus_MP3_Sel:
@@ -224,6 +255,9 @@ void key_back(bool, int, void*)
         case PageStatus_MP3_Play:
             player.setActive(false);
             pageStatus = PageStatus_MP3_Sel;
+            break;
+        case PageStatus_Reader:
+            // TODO
             break;
     }
 }

@@ -170,7 +170,7 @@ void display_Index()
   uint16_t x = 0, y = 0;
   switch (Index_sel)
   {
-    case PageStatus_Reader:
+    case PageStatus_Reader_Sel:
       x = 75, y = 24;
       break;
     case PageStatus_MP3_Sel:
@@ -464,6 +464,48 @@ void display_Hitokoto()
     }
   }
   Serial.println("display_Hitokoto done");
+}
+
+void display_Reader_Sel()
+{
+  Serial.println("display_Reader_Sel");
+
+  display.setRotation(0);
+  display.setPartialWindow(0, 0, 200, 200);
+  u8g2dp.setFont(gb2312);
+  u8g2dp.setForegroundColor(GxEPD_BLACK);
+  u8g2dp.setBackgroundColor(GxEPD_WHITE);
+
+  display.firstPage();
+  do
+  {
+    display.fillRoundRect(0, 6, 200, 5, 3, GxEPD_BLACK);
+    display.fillRoundRect(0, 190, 200, 5, 3, GxEPD_BLACK);
+
+    for (int i = 0; i <= 7; ++i)
+    {
+      display.drawLine(0, 30 + i * 20, 200, 30 + i * 20, GxEPD_BLACK);
+    }
+    
+    for (int i = tlist_l; i <= tlist_r; ++i)
+    {
+      if (i < txt_list.size())
+      {
+        u8g2dp.setCursor(5, 27 + (i - tlist_l) * 20);
+        u8g2dp.println(txt_list[i]);
+      }
+    }
+
+    display.drawBitmap(180, 15 + (tlist_loc - tlist_l) * 20, ICON_ARROW, 15, 11, GxEPD_BLACK);
+  }
+  while (display.nextPage());
+
+  Serial.println("display_Reader_Sel done");
+}
+
+void display_Reader()
+{
+  
 }
 
 const uint8_t LOGO[] PROGMEM =

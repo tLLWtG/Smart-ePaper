@@ -13,8 +13,10 @@ uint8_t partDrawCnt = 0;
 SdFs sd;
 SPIClass SPI2(HSPI);
 Vector<String> music_list;
+Vector<String> txt_list;
 
 uint16_t mlist_l = 0, mlist_r = 8, mlist_loc = 0;
+uint16_t tlist_l = 0, tlist_r = 8, tlist_loc = 0;
 
 AudioActions action;
 

@@ -36,6 +36,24 @@ void make_music_list(FsFile *dir)
   }
 }
 
+void make_txt_list(FsFile *dir)
+{
+  FsFile file;
+  while (file.openNext(dir, O_RDONLY))
+  {
+    char filename[256];
+    if (file.getName(filename, sizeof(filename)) > 0)
+    {
+      String fileNameStr = String(filename);
+      if (fileNameStr.endsWith(".txt"))
+      {
+        txt_list.push_back(fileNameStr);
+      }
+    }
+    file.close();
+  }
+}
+
 bool SD_setup()
 {
   Serial.println("SD_setup");
@@ -55,6 +73,8 @@ bool SD_setup()
 
   root.open("/music");
   make_music_list(&root);
+  root.open("/docs");
+  make_txt_list(&root);
   root.close();
 
   sd.end();

@@ -37,5 +37,7 @@ void display_MP3_Sel();
 void display_MP3_Play();
 void display_Weather();
 void display_Hitokoto();
+void display_Reader_Sel();
+void display_Reader();
 
 #endif
