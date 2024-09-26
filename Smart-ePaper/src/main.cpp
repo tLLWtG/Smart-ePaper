@@ -23,7 +23,7 @@ void setup()
   delay(1000);
   
   pageStatus = PageStatus_Index;
-  Index_sel = PageStatus_Reader_Sel;
+  Index_sel = PageStatus_MP3_Sel;
   key_setup();
 
   Serial.println("setup done");
