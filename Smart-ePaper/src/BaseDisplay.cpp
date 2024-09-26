@@ -170,10 +170,10 @@ void display_Index()
   uint16_t x = 0, y = 0;
   switch (Index_sel)
   {
-    case PageStatus_Reader_Sel:
+    case PageStatus_MP3_Sel:
       x = 75, y = 24;
       break;
-    case PageStatus_MP3_Sel:
+    case PageStatus_Reader_Sel:
       x = 165, y = 24;
       break;
     case PageStatus_Weather:
@@ -198,16 +198,16 @@ void display_Index()
     display.drawLine(100, 10, 100, 190, GxEPD_BLACK);
     
     u8g2dp.setCursor(42, 35);
-    u8g2dp.print("阅读");
-    u8g2dp.setCursor(132, 35);
     u8g2dp.print("音乐");
+    u8g2dp.setCursor(132, 35);
+    u8g2dp.print("阅读");
     u8g2dp.setCursor(42, 125);
     u8g2dp.print("天气");
     u8g2dp.setCursor(132, 125);
     u8g2dp.print("一言");
 
-    display.drawBitmap(35, 45, ICON_BOOK, 40, 40, GxEPD_BLACK);
-    display.drawBitmap(125, 45, ICON_MUSIC, 40, 40, GxEPD_BLACK);
+    display.drawBitmap(35, 45, ICON_MUSIC, 40, 40, GxEPD_BLACK);
+    display.drawBitmap(125, 45, ICON_BOOK, 40, 40, GxEPD_BLACK);
     display.drawBitmap(35, 135, ICON_WEATHER, 40, 40, GxEPD_BLACK);
     display.drawBitmap(125, 135, ICON_QUOTE, 40, 40, GxEPD_BLACK);
 

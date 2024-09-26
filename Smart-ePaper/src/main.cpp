@@ -5,8 +5,6 @@
 #include "Player.h"
 #include "WiFiInterface.h"
 
-// 交换 reader 和 MP3
-
 void setup()
 {
   Serial.begin(115200);

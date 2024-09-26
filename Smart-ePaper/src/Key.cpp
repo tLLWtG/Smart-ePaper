@@ -8,8 +8,8 @@ void key_right(bool, int, void*)
     {
         switch (Index_sel)
         {
-            case PageStatus_Reader_Sel:
-                Index_sel = PageStatus_MP3_Sel;
+            case PageStatus_MP3_Sel:
+                Index_sel = PageStatus_Reader_Sel;
                 reDraw = true;
                 break;
             case PageStatus_Weather:
@@ -42,8 +42,8 @@ void key_left(bool, int, void*)
     {
         switch (Index_sel)
         {
-            case PageStatus_MP3_Sel:
-                Index_sel = PageStatus_Reader_Sel;
+            case PageStatus_Reader_Sel:
+                Index_sel = PageStatus_MP3_Sel;
                 reDraw = true;
                 break;
             case PageStatus_Hitokoto:
@@ -81,11 +81,11 @@ void key_up(bool, int, void*)
         switch (Index_sel)
         {
             case PageStatus_Weather:
-                Index_sel = PageStatus_Reader_Sel;
+                Index_sel = PageStatus_MP3_Sel;
                 reDraw = true;
                 break;
             case PageStatus_Hitokoto:
-                Index_sel = PageStatus_MP3_Sel;
+                Index_sel = PageStatus_Reader_Sel;
                 reDraw = true;
                 break;
         }
@@ -133,11 +133,11 @@ void key_down(bool, int, void*)
     {
         switch (Index_sel)
         {
-            case PageStatus_Reader_Sel:
+            case PageStatus_MP3_Sel:
                 Index_sel = PageStatus_Weather;
                 reDraw = true;
                 break;
-            case PageStatus_MP3_Sel:
+            case PageStatus_Reader_Sel:
                 Index_sel = PageStatus_Hitokoto;
                 reDraw = true;
                 break;
