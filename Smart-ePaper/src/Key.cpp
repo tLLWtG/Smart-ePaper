@@ -258,6 +258,7 @@ void key_back(bool, int, void*)
             break;
         case PageStatus_Reader:
             // TODO
+            pageStatus = PageStatus_Reader_Sel;
             break;
     }
 }

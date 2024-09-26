@@ -426,7 +426,6 @@ void display_Hitokoto()
     }
     else
     {
-      display.setTextWrap(true);
       display.firstPage();
       do
       {
@@ -505,7 +504,28 @@ void display_Reader_Sel()
 
 void display_Reader()
 {
-  
+  // TODO
+  Serial.println("display_Reader");
+
+  display.setRotation(0);
+  display.setPartialWindow(0, 0, 200, 200);
+  u8g2dp.setFont(gb2312);
+  u8g2dp.setForegroundColor(GxEPD_BLACK);
+  u8g2dp.setBackgroundColor(GxEPD_WHITE);
+
+  display.firstPage();
+  do
+  {
+    u8g2dp.setCursor(0, 20);
+    u8g2dp.printf("Reader");
+    u8g2dp.setCursor(20, 40);
+    u8g2dp.println("// TODO");
+    u8g2dp.setCursor(0, 40);
+    u8g2dp.println("前面的区域，以后再来探索吧！");
+  }
+  while (display.nextPage());
+
+  Serial.println("display_Reader done");
 }
 
 const uint8_t LOGO[] PROGMEM =
