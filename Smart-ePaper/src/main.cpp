@@ -5,13 +5,7 @@
 #include "Player.h"
 #include "WiFiInterface.h"
 
-void display_setup()
-{
-  display.init(115200);
-  u8g2dp.begin(display);
-  display_Logo();
-  key_setup();
-}
+// 交换 reader 和 MP3
 
 void setup()
 {
@@ -19,127 +13,47 @@ void setup()
   Serial.println();
   Serial.println("setup");
   delay(50);
-  display_setup();
+
+  display.init(115200);
+  u8g2dp.begin(display);
+  display_Logo();
   if (!SD_setup())
   {
     Serial.println("SD open fail.");
   }
   Player_setup();
-
+  delay(1000);
+  
   pageStatus = PageStatus_Index;
   Index_sel = PageStatus_Reader_Sel;
+  key_setup();
 
   Serial.println("setup done");
-  delay(1000);
 }
+
+void handleDisplayUpdate(void foo());
+void handleWiFiConnection();
 
 void loop()
 {
   switch (pageStatus)
   {
     case PageStatus_Index:
-      if (reDraw)
-      {
-        reDraw = false;
-        if (++partDrawCnt >= 50)
-        {
-          partDrawCnt = 0;
-          display_clearScreen();
-        }
-        display_Index();
-      }
+      handleDisplayUpdate(display_Index);
       break;
     case PageStatus_Reader_Sel:
-      if (reDraw)
-      {
-        reDraw = false;
-        if (++partDrawCnt >= 50)
-        {
-          partDrawCnt = 0;
-          display_clearScreen();
-        }
-        display_Reader_Sel();
-      }
+      handleDisplayUpdate(display_Reader_Sel);
       break;
     case PageStatus_MP3_Sel:
-      if (reDraw)
-      {
-        reDraw = false;
-        if (++partDrawCnt >= 50)
-        {
-          partDrawCnt = 0;
-          display_clearScreen();
-        }
-        display_MP3_Sel();
-      }
+      handleDisplayUpdate(display_MP3_Sel);
       break;
     case PageStatus_Weather:
-      if (reDraw)
-      {
-        reDraw = false;
-        if (++partDrawCnt >= 50)
-        {
-          partDrawCnt = 0;
-          display_clearScreen();
-        }
-        display_Weather();
-      }
-      if (WiFi.status() == WL_CONNECTED)
-      {
-        if (connecting_wifi)
-        {
-          connecting_wifi = false;
-          reDraw = true;
-          delay(300);
-        }
-      }
-      else
-      {
-        if (connecting_wifi)
-        {
-          checkDNS_HTTP();
-          checkConnect();
-        }
-        else
-        {
-          connectToWiFi();
-          connecting_wifi = true;
-        }
-      }
+      handleDisplayUpdate(display_Weather);
+      handleWiFiConnection();
       break;
     case PageStatus_Hitokoto:
-      if (reDraw)
-      {
-        reDraw = false;
-        if (++partDrawCnt >= 50)
-        {
-          partDrawCnt = 0;
-          display_clearScreen();
-        }
-        display_Hitokoto();
-      }
-      if (WiFi.status() == WL_CONNECTED)
-      {
-        if (connecting_wifi)
-        {
-          connecting_wifi = false;
-          reDraw = true;
-          delay(300);
-        }
-      }
-      else
-      {
-        if (connecting_wifi)
-        {
-          checkDNS_HTTP();
-          checkConnect();
-        }
-        else
-        {
-          connectToWiFi();
-          connecting_wifi = true;
-        }
-      }
+      handleDisplayUpdate(display_Hitokoto);
+      handleWiFiConnection();
       break;
     case PageStatus_MP3_Play:
       // redraw for auto next
@@ -150,32 +64,52 @@ void loop()
         mlist_loc = source.index();
         reDraw = true;
       }
-      if (reDraw)
-      {
-        reDraw = false;
-        if (++partDrawCnt >= 50)
-        {
-          partDrawCnt = 0;
-          display_clearScreen();
-        }
-        display_MP3_Play();
-        display.hibernate();
-      }
+      handleDisplayUpdate(display_MP3_Play);
       player.copy();
       break;
     case PageStatus_Reader:
-      if (reDraw)
-      {
-        reDraw = false;
-        if (++partDrawCnt >= 50)
-        {
-          partDrawCnt = 0;
-          display_clearScreen();
-        }
-        display_Reader();
-        display.hibernate();
-      }
+      handleDisplayUpdate(display_Reader);
       break;
   }
   action.processActions();
+}
+
+void handleDisplayUpdate(void foo())
+{
+  if (reDraw)
+  {
+    reDraw = false;
+    if (++partDrawCnt >= 50)
+    {
+      partDrawCnt = 0;
+      display_clearScreen();
+    }
+    foo();
+  }
+}
+
+void handleWiFiConnection()
+{
+  if (WiFi.status() == WL_CONNECTED)
+  {
+    if (connecting_wifi)
+    {
+      connecting_wifi = false;
+      reDraw = true;
+      delay(300);
+    }
+  }
+  else
+  {
+    if (connecting_wifi)
+    {
+      checkDNS_HTTP();
+      checkConnect();
+    }
+    else
+    {
+      connectToWiFi();
+      connecting_wifi = true;
+    }
+  }
 }
