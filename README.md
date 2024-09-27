@@ -6,7 +6,27 @@ An ePaper MP3 player with WiFi, based on ESP32-S3 and Arduino.
 
 > Smart-ePaper 测试板的 PCB 设计见 docs 文件夹，其中 Smart-ePaper-TestBoard.eprj 可用嘉立创 EDA(专业版) 打开。
 >
-> 另外用于显示的 bitmap 和取模规则见 docs/bmp 文件夹。
+> 另外，用于显示的 bitmap 和取模规则见 docs/bmp 文件夹。
+
+* **实物图**
+  
+  <details><summary>点击展开</summary>
+    
+  ![](./docs/img/MP3.jpg)
+
+  ![](./docs/img/Speaker.jpg)
+  
+  </details>
+
+* **功能展示**
+
+  <details><summary>点击展开</summary>
+    
+  ![](./docs/img/all.jpg)
+
+  ![](./docs/img/4.png)
+  
+  </details>
 
 ## Hardware and Software
 
@@ -29,6 +49,8 @@ An ePaper MP3 player with WiFi, based on ESP32-S3 and Arduino.
     * [ArduinoUZlib](https://github.com/tignioj/ArduinoUZlib)
     * [arduino-audio-tools](https://github.com/pschatzmann/arduino-audio-tools)@^0.9.8
     * [arduino-libhelix](https://github.com/pschatzmann/arduino-libhelix)@^0.8.5
+
+  > 以上库也已打包为 libraries.zip，放在了 release 里。
 
 ## Pin Assignments
 
@@ -96,6 +118,8 @@ An ePaper MP3 player with WiFi, based on ESP32-S3 and Arduino.
 * 电源不稳定时（比如我的电脑在插电状态下的 USB 供电），DAC 效果极差，同时也会导致 SD 卡读取异常。
 * 某些 SD 卡读写模块虽然标 3.3~5V，但实际上一定要接 5V 才能正常使用。
 * 测试结束后，将日志的级别设为 `AudioLogger::Warning` 或 `AudioLogger::Error` 以提高音质。
+* 配网相关操作见屏幕提示。
+* 若要使用天气功能，需在 Weather.h 中填入[和风天气](https://dev.qweather.com/) APIKEY。(免费订阅版本)
 
 ## Functional Tests
 
