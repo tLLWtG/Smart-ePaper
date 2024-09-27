@@ -118,7 +118,7 @@ An ePaper MP3 player with WiFi, based on ESP32-S3 and Arduino.
 * 电源不稳定时（比如我的电脑在插电状态下的 USB 供电），DAC 效果极差，同时也会导致 SD 卡读取异常。
 * 某些 SD 卡读写模块虽然标 3.3~5V，但实际上一定要接 5V 才能正常使用。
 * 测试结束后，将日志的级别设为 `AudioLogger::Warning` 或 `AudioLogger::Error` 以提高音质。
-* 配网相关操作见屏幕提示。
+* 配网相关操作见屏幕提示（连接热点“myESP32_AP”，然后在强制门户中输入 WiFi 名和密码）。
 * 若要使用天气功能，需在 Weather.h 中填入[和风天气](https://dev.qweather.com/) APIKEY。(免费订阅版本)
 
 ## Functional Tests
