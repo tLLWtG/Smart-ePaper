@@ -1,6 +1,14 @@
 # Smart-ePaper
 
-An ePaper MP3 player with WiFi. (Under development)
+An ePaper MP3 player with WiFi, based on ESP32-S3 and Arduino.
+
+一个基于 ESP32-S3 主控和 Arduino 框架的联网墨水屏 MP3。
+
+> Smart-ePaper 测试板的 PCB 设计见 docs 文件夹，其中 Smart-ePaper-TestBoard.eprj 可用嘉立创 EDA(专业版) 打开。
+>
+> 另外用于显示的 bitmap 和取模规则见 docs/bmp 文件夹。
+
+## Hardware and Software
 
 * **Board**: ESP32-S3-WROOM-1-N16R8
 * **Framework**: Arduino (PlatformIO IDE)
@@ -8,19 +16,19 @@ An ePaper MP3 player with WiFi. (Under development)
   * 1.54-inch 200x200 e-paper display (ZJY200200-0154DAAMFGN, driver: SSD1681)
   * PCM5102 (DAC)
   * PAM8406 (功放)
-  * 3520 薄型侧发声腔体喇叭 (8Ω, 1W)
+  * 某 2 寸发烧 4Ω5W HiFi 喇叭
   * MicroSD Card Adapter (SPI, support 32GB SDHC)
-  * ...
 * **Libraries**
   * **Arduino Lib**:
-    * zinggjm/GxEPD2
-    * olikraus/U8g2_for_Adafruit_GFX
-    * bblanchon/ArduinoJson
-    * greiman/SdFat
+    * [zinggjm/GxEPD2](https://github.com/ZinggJM/GxEPD2)@^1.5.8
+      * depends: [adafruit/Adafruit_BusIO](https://github.com/adafruit/Adafruit_BusIO)@^1.16.1, [adafruit/Adafruit-GFX-Library](https://github.com/adafruit/Adafruit-GFX-Library)@^1.11.10
+    * [olikraus/U8g2_for_Adafruit_GFX](https://github.com/olikraus/U8g2_for_Adafruit_GFX)@^1.8.0
+    * [bblanchon/ArduinoJson](https://github.com/bblanchon/ArduinoJson)@^7.1.0
+    * [greiman/SdFat](https://github.com/greiman/SdFat)@^2.2.3
   * **Extra Lib**:
     * [ArduinoUZlib](https://github.com/tignioj/ArduinoUZlib)
-    * [arduino-audio-tools](https://github.com/pschatzmann/arduino-audio-tools)
-    * [arduino-libhelix](https://github.com/pschatzmann/arduino-libhelix)
+    * [arduino-audio-tools](https://github.com/pschatzmann/arduino-audio-tools)@^0.9.8
+    * [arduino-libhelix](https://github.com/pschatzmann/arduino-libhelix)@^0.8.5
 
 ## Pin Assignments
 
@@ -32,7 +40,7 @@ An ePaper MP3 player with WiFi. (Under development)
   |----------|-----|
   | CS       | G10 |
   | MOSI/SDA | G11 |
-  | MISO     | G13 |
+  | // MISO  | G13 |
   | SCK/SCL  | G12 |
   | DC       | G8  |
   | RST      | G7  |
@@ -89,7 +97,7 @@ An ePaper MP3 player with WiFi. (Under development)
 * 某些 SD 卡读写模块虽然标 3.3~5V，但实际上一定要接 5V 才能正常使用。
 * 测试结束后，将日志的级别设为 `AudioLogger::Warning` 或 `AudioLogger::Error` 以提高音质。
 
-## Tests
+## Functional Tests
 
 > Pre-integration functional testing.
 >
@@ -129,7 +137,9 @@ An ePaper MP3 player with WiFi. (Under development)
 
     * Arduino Lib: SdFat
     * Extra Lib: arduino-audio-tools, arduino-libhelix
-  
+
+> Reader 咕咕了，个人觉得实用性较差（）不过还是在代码中保留了相关接口。
+
 ## License
 
 This project is licensed under the MIT license. External libraries used by Smart-ePaper are licensed under their own licenses.
