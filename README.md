@@ -28,6 +28,14 @@ An ePaper MP3 player with WiFi, based on ESP32-S3 and Arduino.
   
   </details>
 
+* **音响效果**
+
+  <details><summary>点击展开</summary>
+    
+  → [bilibili 链接](https://www.bilibili.com/video/BV1JnxwetEhW)
+  
+  </details>
+
 ## Hardware and Software
 
 * **Board**: ESP32-S3-WROOM-1-N16R8
