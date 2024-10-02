@@ -33,6 +33,40 @@ void key_right(bool, int, void*)
         player.setIndex(mlist_loc);
         player.setActive(true);
     }
+    else if (pageStatus == PageStatus_MP3_Sel)
+    {
+        int t = 8;
+        while (t--)
+        {
+            if (mlist_loc + 1 == music_list.size())
+                return;
+            reDraw = true;
+            mlist_loc = mlist_loc + 1;
+            if (mlist_loc > mlist_r)
+            {
+                ++mlist_l;
+                ++mlist_r;
+                reDraw = true;
+            }
+        }
+    }
+    else if (pageStatus == PageStatus_Reader_Sel)
+    {
+        int t = 8;
+        while (t--)
+        {
+            if (tlist_loc + 1 == txt_list.size())
+                return;
+            reDraw = true;
+            tlist_loc = tlist_loc + 1;
+            if (tlist_loc > tlist_r)
+            {
+                ++tlist_l;
+                ++tlist_r;
+                reDraw = true;
+            }
+        }
+    }
 }
 
 void key_left(bool, int, void*)
@@ -70,6 +104,38 @@ void key_left(bool, int, void*)
     {
         Serial.println("Clear WiFi info.");
         esp_wifi_restore();
+    }
+    else if (pageStatus == PageStatus_MP3_Sel)
+    {
+        int t = 8;
+        while (t--)
+        {
+            if (mlist_loc == 0)
+                return;
+            reDraw = true;
+            mlist_loc = mlist_loc - 1;
+            if (mlist_loc < mlist_l)
+            {
+                --mlist_l;
+                --mlist_r;
+            }
+        }
+    }
+    else if (pageStatus == PageStatus_Reader_Sel)
+    {
+        int t = 8;
+        while (t--)
+        {
+            if (tlist_loc == 0)
+                return;
+            reDraw = true;
+            tlist_loc = tlist_loc - 1;
+            if (tlist_loc < tlist_l)
+            {
+                --tlist_l;
+                --tlist_r;
+            }
+        }
     }
 }
 
